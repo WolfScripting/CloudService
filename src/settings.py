@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'user',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -71,12 +72,15 @@ SITE_ID = 1
 SOCIALACCOUNT_PROVIDERS = {
     'steam': {
         'APP': {
-            'client_id': '123',
-            'secret': '456',
+            'client_id': os.environ.get('STEAM_KEY'),
+            'secret': os.environ.get('STEAM_KEY'),
             'key': ''
         }
     }
 }
+
+AUTH_USER_MODEL = 'user.User'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
