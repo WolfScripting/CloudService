@@ -16,11 +16,11 @@ class User(AbstractUser):
 
     def __str__(self):
         return str(self.id)
-    
+
     @property
     def steam_account(self):
         return SocialAccount.objects.get(user=self)
-        
+
 
 @receiver(post_save, sender=SocialAccount)
 def save_steam_id_to_user(sender, instance, created, **kwargs):
@@ -28,7 +28,7 @@ def save_steam_id_to_user(sender, instance, created, **kwargs):
         # Saves the Steam ID to the User model so it can be queried directly 
         instance.user.steam_id = instance.extra_data['steamid']
         instance.user.save()
-    
+
 
 @receiver(post_save, sender=User)
 def create_auth_token(sender, instance=None, created=False, **kwargs):

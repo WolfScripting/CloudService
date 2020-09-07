@@ -21,7 +21,6 @@ dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -35,17 +34,17 @@ ALLOWED_HOSTS = ['127.0.0.1', 'cloud.f4mp.net']
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
-   ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    SECURE_SSL_REDIRECT = default=True
+    SECURE_SSL_REDIRECT = default = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_HSTS_SECONDS = 518400
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True 
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
 
@@ -91,7 +90,6 @@ SOCIALACCOUNT_PROVIDERS = {
 
 AUTH_USER_MODEL = 'user.User'
 
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -121,7 +119,6 @@ TEMPLATES = [
     },
 ]
 
-
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -132,13 +129,10 @@ AUTHENTICATION_BACKENDS = [
 
 WSGI_APPLICATION = 'src.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {}
-DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-
+DATABASES = {'default': dj_database_url.config(conn_max_age=600)}
 
 ACCOUNT_FORMS = {
     'add_email': 'user.forms.MemberAddEmailForm',
@@ -168,7 +162,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -181,7 +174,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
