@@ -130,6 +130,16 @@ DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 
+ACCOUNT_FORMS = {
+    'add_email': 'user.forms.MemberAddEmailForm',
+    'change_password': 'user.forms.MemberChangePasswordForm',
+    'login': 'user.forms.MemberLoginForm',
+    'reset_password': 'user.forms.MemberResetPasswordForm',
+    'reset_password_from_key': 'user.forms.MemberResetPasswordForm',
+    'set_password': 'user.forms.MemberSetPasswordForm',
+    'signup': 'user.forms.MemberSignupForm',
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -147,8 +157,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Internationalization
