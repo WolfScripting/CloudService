@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from allauth.socialaccount.models import SocialAccount
-
+from rest_framework.authtoken.models import Token
 
 import uuid
 
@@ -28,3 +28,10 @@ def save_steam_id_to_user(sender, instance, created, **kwargs):
         # Saves the Steam ID to the User model so it can be queried directly 
         instance.user.steam_id = instance.extra_data['steamid']
         instance.user.save()
+    
+
+@receiver(post_save, sender=User)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        # Create API token for every user by default
+        Token.objects.create(user=instance)

@@ -65,6 +65,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.steam',
+
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 SITE_ID = 1
