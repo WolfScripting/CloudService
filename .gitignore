@@ -146,6 +146,9 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
+# Staticfiles
+staticfiles
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 
