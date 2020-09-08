@@ -10,6 +10,7 @@ class MemberLoginForm(LoginForm):
     def clean(self):
         raise forms.ValidationError('You cannot login via this method.')
 
+
 class MemberChangePasswordForm(ChangePasswordForm):
     def clean(self):
         raise forms.ValidationError('You cannot change password.')
@@ -28,6 +29,7 @@ class MemberResetPasswordForm(ResetPasswordForm):
 class MemberAddEmailForm(AddEmailForm):
     def clean(self):
         raise forms.ValidationError('You cannot add an email.')
+
 
 class MemberSignupForm(SignupForm):
     def clean(self):
