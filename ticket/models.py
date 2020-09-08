@@ -8,6 +8,7 @@ from functools import partial
 import datetime
 import secrets
 
+
 class Ticket(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -17,12 +18,16 @@ class Ticket(models.Model):
 
     def __str__(self):
         return self.secret
-    
+
     @property
     def is_valid(self):
         expiry_date = self.created + datetime.timedelta(minutes=5)
 
         if expiry_date > timezone.now():
             return True
-        
-        return False
+        else:
+            return False
+
+    @property
+    def steam_id(self):
+        return self.user.steam_id
