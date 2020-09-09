@@ -13,6 +13,7 @@ class Ticket(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     created = models.DateTimeField(auto_now_add=True)
+    expiry = models.DateTimeField(default=timezone.now() + datetime.timedelta(minutes=5))
 
     secret = models.CharField(default=partial(secrets.token_urlsafe, 32), max_length=100)
 
@@ -21,12 +22,7 @@ class Ticket(models.Model):
 
     @property
     def is_valid(self):
-        expiry_date = self.created + datetime.timedelta(minutes=5)
-
-        if expiry_date > timezone.now():
-            return True
-        else:
-            return False
+        return timezone.now() <= self.expiry
 
     @property
     def steam_id(self):

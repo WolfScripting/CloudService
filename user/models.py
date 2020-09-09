@@ -21,6 +21,12 @@ class User(AbstractUser):
     def steam_account(self):
         return SocialAccount.objects.get(user=self)
 
+    @property
+    def token(self):
+        # This will sometimes be called before a token has been generated and as all users should have a token
+        # one will be generated if it doesn't exist.
+        return Token.objects.get_or_create(user=self)[0].key
+
 
 @receiver(post_save, sender=SocialAccount)
 def save_steam_id_to_user(sender, instance, created, **kwargs):

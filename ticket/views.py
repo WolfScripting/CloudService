@@ -1,16 +1,23 @@
-from django.views.decorators.http import require_POST
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
+
 from ticket.models import Ticket
+from ticket.serializer import TicketSerializer
+
 from user.serializers import UserSerializer
 
 
-@csrf_exempt
-@require_POST
+@api_view(['POST'])
 def validate(request):
     try:
-        t = Ticket.objects.get(secret=request.POST["ticket"])
-        if t.user.steam_id != request.POST["steam_id"]:
+        t = Ticket.objects.get(secret=request.POST['ticket'])
+        if t.user.steam_id != request.POST['steam_id']:
+            # This should only be caused if the server provides an incorrect steam id.
+            # As this could be an attack vector for invalidating tickets without them being used,
+            # It should NOT be deleted and instead act as if it doesn't exist at all.
             raise Ticket.DoesNotExist
         elif not t.is_valid:
             t.delete()
@@ -22,4 +29,11 @@ def validate(request):
     else:
         serializer = UserSerializer(t.user)
         t.delete()
-        return JsonResponse(serializer.data, status=200)
+        return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def generate(request):
+    ticket = Ticket.objects.create(user=request.user)
+    return Response(TicketSerializer(ticket).data)
