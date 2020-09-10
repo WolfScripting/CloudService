@@ -7,11 +7,12 @@ CloudService is a Python DRF for enabling services like a central authentication
 First install a tool for creating virtual python enviorments e.g https://pypi.org/project/virtualenv/
 
  1. Download the code
- 2. Install the required packages ```pip install -r requirements.txt```
- 3. Run database migrations ```python manage.py migrate```
- 4. Collect static files ```python manage.py collectstatic```
- 5. You need to register an API key here: https://steamcommunity.com/dev/apikey
- 6. Rename ```example.env``` to ```.env``` and edit the values
+ 2. Setup the virtual env ```virtualenv venv```
+ 3. Install the required packages ```pip install -r requirements.txt```
+ 4. Run database migrations ```python manage.py migrate```
+ 5. Collect static files ```python manage.py collectstatic```
+ 6. You need to register an API key here: https://steamcommunity.com/dev/apikey
+ 7. Rename ```example.env``` to ```.env``` and edit the values
 	 a. ```DATABASE_URL=sqlite:///db.sqlite3```
 	 b. ```SECRET_KEY=<replace with secure random string>```
 	 c. ```STEAM_KEY=<replace with steam key provided in step 5>```
