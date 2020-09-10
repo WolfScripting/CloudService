@@ -69,7 +69,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.steam',
 
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+
+    'health_check',                             
+    'health_check.db',                         
+    'health_check.cache',
+    'health_check.storage',
 ]
 
 REST_FRAMEWORK = {

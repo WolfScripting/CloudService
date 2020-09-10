@@ -21,6 +21,7 @@ admin_path = settings.ADMIN_PATH + "/"
 
 urlpatterns = [
     path(admin_path, admin.site.urls),
+    path('health-check/', include('health_check.urls')),
     path('accounts/', include('allauth.urls')),
     path('ticket/', include('ticket.urls')),
     path('', include('user.urls'))
