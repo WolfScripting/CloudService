@@ -16,7 +16,7 @@ class Ticket(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     expiry = models.DateTimeField(default=timezone.now() + datetime.timedelta(minutes=5))
 
-    secret = models.CharField(default=partial(secrets.token_urlsafe, 32), max_length=100)
+    secret = models.CharField(unique=True, max_length=100, db_index=True, default=partial(secrets.token_urlsafe, 32))
 
     def __str__(self):
         return self.secret
