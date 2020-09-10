@@ -5,4 +5,4 @@ from .models import Ticket
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
-        fields = ('secret', 'expiry')
+        fields = ('secret', 'expiry', 'server')

@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -19,13 +18,15 @@ def validate(request):
             # As this could be an attack vector for invalidating tickets without them being used,
             # It should NOT be deleted and instead act as if it doesn't exist at all.
             raise Ticket.DoesNotExist
+        elif t.server != request.META['HTTP_X_FORWARDED_FOR']:
+            return Response(status=401)
         elif not t.is_valid:
             t.delete()
             raise Ticket.DoesNotExist
     except Ticket.DoesNotExist:
-        return HttpResponse('404', status=404)
+        return Response(status=404)
     except KeyError:
-        return HttpResponse('400', status=400)
+        return Response(status=400)
     else:
         serializer = UserSerializer(t.user)
         t.delete()
@@ -35,5 +36,8 @@ def validate(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def generate(request):
-    ticket = Ticket.objects.create(user=request.user)
+    try:
+        ticket = Ticket.objects.create(user=request.user, server=request.POST['server'])
+    except KeyError:
+        return Response(status=400)
     return Response(TicketSerializer(ticket).data)

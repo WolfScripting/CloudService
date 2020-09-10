@@ -11,6 +11,7 @@ import secrets
 
 class Ticket(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    server = models.GenericIPAddressField(null=False)
 
     created = models.DateTimeField(auto_now_add=True)
     expiry = models.DateTimeField(default=timezone.now() + datetime.timedelta(minutes=5))
