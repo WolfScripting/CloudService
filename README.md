@@ -15,6 +15,7 @@ First install a tool for creating virtual python enviorments e.g https://pypi.or
 	 a. ```DATABASE_URL=sqlite:///db.sqlite3```
 	 b. ```SECRET_KEY=<replace with secure random string>```
 	 c. ```STEAM_KEY=<replace with steam key provided in step 5>```
+	 d. ```ADMIN_PATH=<replace with a random string>```
 
 
 ## Contributing
