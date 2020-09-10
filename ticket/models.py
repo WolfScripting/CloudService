@@ -21,7 +21,6 @@ class Ticket(models.Model):
     def __str__(self):
         return self.secret
 
-    @property
     def is_valid(self):
         return timezone.now() <= self.expiry
 
