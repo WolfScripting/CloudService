@@ -1,4 +1,4 @@
-# F4MP Cloud Service (in development)
+# F4MP Cloud Service
 
 CloudService is a Python DRF for enabling services like a central authentication/identity service for the F4MP mod.
 
