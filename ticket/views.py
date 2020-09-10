@@ -15,9 +15,9 @@ from django.core.validators import validate_ipv46_address
 
 @api_view(['POST'])
 def validate(request):
-    secret      = request.POST['ticket']
-    steam_id    = request.POST['steam_id']
-    request_ip  = request.META['HTTP_X_FORWARDED_FOR']
+    secret      = request.POST.get('ticket')
+    steam_id    = request.POST.get('steam_id')
+    request_ip  = request.META.get('HTTP_X_FORWARDED_FOR')
 
     try:
         ticket = Ticket.objects.get(
@@ -47,7 +47,7 @@ def validate(request):
 @authentication_classes((TokenAuthentication,))
 @permission_classes([IsAuthenticated])
 def generate(request):
-    server_ip   = request.POST['server']
+    server_ip   = request.POST.get('server')
     user        = request.user
 
     try:
