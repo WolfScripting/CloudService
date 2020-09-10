@@ -51,6 +51,8 @@ MANIFEST
 *.manifest
 *.spec
 
+health_check_storage_test
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
