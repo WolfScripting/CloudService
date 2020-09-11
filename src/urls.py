@@ -23,6 +23,6 @@ urlpatterns = [
     path(admin_path, admin.site.urls),
     path('health-check/', include('health_check.urls')),
     path('', include('social_django.urls', namespace='social')),
-    path('ticket/', include('ticket.urls')),
+    path('v1/ticket/', include('ticket.urls')),
     path('', include('user.urls'))
 ]

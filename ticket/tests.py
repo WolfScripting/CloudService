@@ -19,7 +19,7 @@ class TicketTestCase(TestCase):
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + user.token)
 
-        response = client.post('/ticket/generate/',{
+        response = client.post('/v1/ticket/generate/',{
             "server": server
         })
 
