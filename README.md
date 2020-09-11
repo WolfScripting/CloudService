@@ -2,6 +2,8 @@
 
 CloudService is a Python DRF for enabling services like a central authentication/identity service for the F4MP mod.
 
+![Django CI](https://github.com/F4MP/CloudService/workflows/Django%20CI/badge.svg)
+
 ## Running locally
 
 First install a tool for creating virtual python enviorments e.g https://pypi.org/project/virtualenv/
