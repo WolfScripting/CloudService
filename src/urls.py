@@ -22,7 +22,7 @@ admin_path = settings.ADMIN_PATH + "/"
 urlpatterns = [
     path(admin_path, admin.site.urls),
     path('health-check/', include('health_check.urls')),
-    path('accounts/', include('allauth.urls')),
+    path('', include('social_django.urls', namespace='social')),
     path('ticket/', include('ticket.urls')),
     path('', include('user.urls'))
 ]
