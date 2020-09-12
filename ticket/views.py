@@ -11,10 +11,14 @@ from user.serializers import UserSerializer
 
 from django.core.validators import validate_ipv46_address
 
+import logging
 
+logger = logging.getLogger(__name__)
 
 @api_view(['POST'])
 def validate(request):
+    logger = logging.getLogger('ticket.validate')
+
     secret      = request.POST.get('ticket')
     steam_id    = request.POST.get('steam_id')
     request_ip  = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -33,6 +37,8 @@ def validate(request):
             raise ValueError
 
     except:
+        logger.info(f"Validation of ticket [{secret}] for user [{steam_id}] from [{request_ip}] failed")
+
         content = {'error': 'ticket_not_found'}
         return Response(content, status=status.HTTP_404_NOT_FOUND)
     
@@ -40,6 +46,8 @@ def validate(request):
 
     ticket.delete() # ticket is one-time use, delete straight away
     
+    logger.info(f"Validation of ticket [{secret}] for user [{steam_id}] from [{request_ip}] success")
+
     return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
@@ -53,6 +61,8 @@ def generate(request):
     try:
         validate_ipv46_address(server_ip) # ensure a value is either a valid IPv4 or IPv6 address
     except:
+        logger.info(f"Generation of ticket for user [{user.id}] for server IP [{server_ip}] failed")
+
         content = {'error': 'malformed_ip'}
         return Response(content, status=status.HTTP_400_BAD_REQUEST)
 
@@ -63,6 +73,8 @@ def generate(request):
     )
 
     serializer = TicketSerializer(ticket)
+
+    logger.info(f"Generation of ticket for user [{user.id}] for server IP [{server_ip}] success")
 
     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
