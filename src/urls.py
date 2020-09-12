@@ -19,10 +19,15 @@ from django.conf import settings
 
 admin_path = settings.ADMIN_PATH + "/"
 
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
 urlpatterns = [
     path(admin_path, admin.site.urls),
     path('health-check/', include('health_check.urls')),
+    path('sentry-debug/', trigger_error),
     path('', include('social_django.urls', namespace='social')),
+    
     path('v1/ticket/', include('ticket.urls')),
     path('', include('user.urls'))
 ]
