@@ -27,3 +27,5 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please made sure any changes or additions have adequate test coverage.
 
 Tests can be run by simply running ```python manage.py test```
+
+Starting Adaption by WolfScripting
